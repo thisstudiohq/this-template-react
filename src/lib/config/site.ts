@@ -1,13 +1,22 @@
-import { getCloudinaryUrl } from "./cloudinary";
-import { isSanityConfigured, sanityClient } from "./sanity/client";
-import { urlForImage } from "./sanity/image";
-import { aboutQuery, siteSettingsQuery } from "./sanity/queries";
-import type { SanityAbout, SanitySiteSettings } from "./sanity/types";
+import { getCloudinaryUrl } from "../cloudinary";
+import { isSanityConfigured, sanityClient } from "../sanity/client";
+import { urlForImage } from "../sanity/image";
+import { aboutQuery, siteSettingsQuery } from "../sanity/queries";
+import type { SanityAbout, SanitySiteSettings } from "../sanity/types";
+
+export interface SiteIcons {
+	icon: string;
+	icon16: string;
+	icon32: string;
+	apple: string;
+	manifest: string;
+}
 
 export interface SiteSettings {
 	name: string;
 	description: string;
 	url: string;
+	ogImage?: string;
 	author: string;
 	authorUrl: string;
 	email: string;
@@ -15,6 +24,7 @@ export interface SiteSettings {
 	locale: string;
 	themeColor: string;
 	role: string;
+	icons: SiteIcons;
 }
 
 export interface AboutContactLink {
@@ -30,9 +40,10 @@ export interface AboutData {
 }
 
 export const siteConfig: SiteSettings = {
-	name: "Template Studio",
-	description: "A curated creative portfolio and showcase built with React and Sanity.",
+	name: "This Studio Template",
+	description: "This Studio boilterplate template for creatives, built with React and Sanity.",
 	url: "https://example.com",
+	ogImage: "/opengraph-image.png",
 	author: "Ibrahim Raimi",
 	authorUrl: "https://ibrahimraimi.xyz",
 	email: "ibrahimraimi.tech@gmail.com",
@@ -40,6 +51,13 @@ export const siteConfig: SiteSettings = {
 	locale: "en_US",
 	themeColor: "#1500E1",
 	role: "Creative / Director / Designer",
+	icons: {
+		icon: "/favicon.ico",
+		icon16: "/favicon-16x16.png",
+		icon32: "/favicon-32x32.png",
+		apple: "/apple-touch-icon.png",
+		manifest: "/site.webmanifest",
+	},
 };
 
 export const defaultAboutData: AboutData = {
@@ -64,6 +82,7 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
 				name: doc.name || siteConfig.name,
 				description: doc.description || siteConfig.description,
 				url: doc.url || siteConfig.url,
+				ogImage: siteConfig.ogImage,
 				author: doc.author || siteConfig.author,
 				authorUrl: doc.authorUrl || siteConfig.authorUrl,
 				email: doc.email || siteConfig.email,
@@ -71,6 +90,7 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
 				locale: doc.locale || siteConfig.locale,
 				themeColor: doc.themeColor || siteConfig.themeColor,
 				role: doc.role || siteConfig.role,
+				icons: siteConfig.icons,
 			};
 		}
 	} catch (error) {

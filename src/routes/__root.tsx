@@ -4,59 +4,72 @@ import scssCss from "../scss/index.scss?url";
 import appCss from "../styles.css?url";
 import "../scss/index.scss";
 
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig } from "@/lib/config/site";
 
 export const Route = createRootRoute({
-	head: () => ({
-		meta: [
-			{ charSet: "utf-8" },
-			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ title: `${siteConfig.name} — ${siteConfig.author}` },
-			{ name: "description", content: siteConfig.description },
-			{ name: "author", content: siteConfig.author },
-			{ name: "theme-color", content: siteConfig.themeColor },
+	head: () => {
+		const ogImageUrl = siteConfig.ogImage?.startsWith("http")
+			? siteConfig.ogImage
+			: `${siteConfig.url}${siteConfig.ogImage ?? "/opengraph-image.png"}`;
 
-			{ property: "og:type", content: "website" },
-			{ property: "og:site_name", content: siteConfig.name },
-			{ property: "og:title", content: `${siteConfig.name} — ${siteConfig.author}` },
-			{ property: "og:description", content: siteConfig.description },
-			{ property: "og:url", content: siteConfig.url },
-			{ property: "og:locale", content: siteConfig.locale },
-			{ property: "og:image", content: `${siteConfig.url}/opengraph-image.png` },
+		return {
+			meta: [
+				{ charSet: "utf-8" },
+				{ name: "viewport", content: "width=device-width, initial-scale=1" },
+				{ title: `${siteConfig.name} — ${siteConfig.author}` },
+				{ name: "description", content: siteConfig.description },
+				{ name: "author", content: siteConfig.author },
+				{ name: "theme-color", content: siteConfig.themeColor },
+				{ name: "apple-mobile-web-app-title", content: siteConfig.name },
+				{ name: "application-name", content: siteConfig.name },
+				{ name: "msapplication-TileColor", content: siteConfig.themeColor },
 
-			{ name: "twitter:card", content: "summary_large_image" },
-			{ name: "twitter:title", content: `${siteConfig.name} — ${siteConfig.author}` },
-			{ name: "twitter:description", content: siteConfig.description },
-			{ name: "twitter:image", content: `${siteConfig.url}/opengraph-image.png` },
-		],
-		links: [
-			{ rel: "canonical", href: siteConfig.url },
-			{
-				rel: "preload",
-				href: "/shared/fonts/ppneuemontreal-book.otf",
-				as: "font",
-				type: "font/otf",
-				crossOrigin: "anonymous",
-			},
-			{
-				rel: "preload",
-				href: "/shared/fonts/ppneuemontreal-medium.otf",
-				as: "font",
-				type: "font/otf",
-				crossOrigin: "anonymous",
-			},
-			{
-				rel: "preload",
-				href: "/shared/fonts/SFMonoRegular.otf",
-				as: "font",
-				type: "font/otf",
-				crossOrigin: "anonymous",
-			},
-			{ rel: "icon", href: "/favicon.ico", sizes: "any" },
-			{ rel: "stylesheet", href: appCss },
-			{ rel: "stylesheet", href: scssCss },
-		],
-	}),
+				{ property: "og:type", content: "website" },
+				{ property: "og:site_name", content: siteConfig.name },
+				{ property: "og:title", content: `${siteConfig.name} — ${siteConfig.author}` },
+				{ property: "og:description", content: siteConfig.description },
+				{ property: "og:url", content: siteConfig.url },
+				{ property: "og:locale", content: siteConfig.locale },
+				{ property: "og:image", content: ogImageUrl },
+
+				{ name: "twitter:card", content: "summary_large_image" },
+				{ name: "twitter:title", content: `${siteConfig.name} — ${siteConfig.author}` },
+				{ name: "twitter:description", content: siteConfig.description },
+				{ name: "twitter:image", content: ogImageUrl },
+			],
+			links: [
+				{ rel: "canonical", href: siteConfig.url },
+				{
+					rel: "preload",
+					href: "/shared/fonts/ppneuemontreal-book.otf",
+					as: "font",
+					type: "font/otf",
+					crossOrigin: "anonymous",
+				},
+				{
+					rel: "preload",
+					href: "/shared/fonts/ppneuemontreal-medium.otf",
+					as: "font",
+					type: "font/otf",
+					crossOrigin: "anonymous",
+				},
+				{
+					rel: "preload",
+					href: "/shared/fonts/SFMonoRegular.otf",
+					as: "font",
+					type: "font/otf",
+					crossOrigin: "anonymous",
+				},
+				{ rel: "icon", href: siteConfig.icons.icon, sizes: "any" },
+				{ rel: "icon", type: "image/png", sizes: "32x32", href: siteConfig.icons.icon32 },
+				{ rel: "icon", type: "image/png", sizes: "16x16", href: siteConfig.icons.icon16 },
+				{ rel: "apple-touch-icon", sizes: "180x180", href: siteConfig.icons.apple },
+				{ rel: "manifest", href: siteConfig.icons.manifest },
+				{ rel: "stylesheet", href: appCss },
+				{ rel: "stylesheet", href: scssCss },
+			],
+		};
+	},
 	notFoundComponent: function RootNotFound() {
 		return (
 			<main style={{ padding: "120px 20px", textAlign: "center" }}>
