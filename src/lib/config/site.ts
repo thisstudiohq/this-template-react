@@ -19,6 +19,7 @@ export interface SiteSettings {
 	ogImage?: string;
 	author: string;
 	authorUrl: string;
+	github?: string;
 	email: string;
 	instagram: string;
 	locale: string;
@@ -46,6 +47,7 @@ export const siteConfig: SiteSettings = {
 	ogImage: "/opengraph-image.png",
 	author: "Ibrahim Raimi",
 	authorUrl: "https://ibrahimraimi.xyz",
+	github: "https://github.com/thisstudiohq/this-template-react",
 	email: "ibrahimraimi.tech@gmail.com",
 	instagram: "https://instagram.com/ibrahimraimi_",
 	locale: "en_US",
@@ -85,6 +87,7 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
 				ogImage: siteConfig.ogImage,
 				author: doc.author || siteConfig.author,
 				authorUrl: doc.authorUrl || siteConfig.authorUrl,
+				github: siteConfig.github,
 				email: doc.email || siteConfig.email,
 				instagram: doc.instagram || siteConfig.instagram,
 				locale: doc.locale || siteConfig.locale,

@@ -1,1 +1,435 @@
 @use '../utils' as *;
+
+.satus-page {
+	min-height: 100vh;
+	min-height: 100svh;
+	background-color: $color-bg-primary;
+	color: $color-text-primary;
+	font-family: $font-montreal;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	position: relative;
+	overflow-x: hidden;
+}
+
+.satus-container {
+	width: 100%;
+	max-width: $container-max-width;
+	margin: 0 auto;
+	padding: 0 $grid-padding;
+
+	@include media-down('tablet') {
+		padding: 0 $grid-padding-mobile;
+		max-width: 100%;
+	}
+}
+
+.satus-header {
+	width: 100%;
+	padding: $grid-padding 0;
+	position: relative;
+	z-index: $z-nav;
+
+	.satus-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__brand {
+		font-family: $font-mono;
+		font-size: $font-size-nav;
+		font-weight: $font-weight-medium;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		display: flex;
+		align-items: center;
+		gap: $grid-col-gap;
+		color: $color-text-primary;
+		text-decoration: none;
+	}
+
+	&__logo {
+		width: 36rem;
+		height: 36rem;
+		display: block;
+		object-fit: contain;
+	}
+
+	&__brand-path {
+		color: $color-text-muted;
+	}
+
+	&__menu-toggle {
+		display: none;
+		font-family: $font-mono;
+		font-size: $font-size-nav;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: $color-text-secondary;
+		background-color: $color-bg-elevated;
+		border: 1px solid $line;
+		padding: 6rem 12rem;
+		cursor: pointer;
+		transition: $transition-fast;
+
+		&:hover {
+			color: $color-text-primary;
+			border-color: $color-text-primary;
+		}
+
+		@include media-down('tablet') {
+			display: block;
+		}
+	}
+
+	&__nav {
+		display: flex;
+		align-items: center;
+		gap: $grid-padding;
+
+		@include media-down('tablet') {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: $grid-padding-mobile;
+			right: $grid-padding-mobile;
+			background-color: $color-bg-surface;
+			border: 1px solid $line;
+			padding: $grid-padding-mobile * 1.5;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: $grid-padding-mobile;
+			box-shadow: 0 12rem 32rem rgba(0, 0, 0, 0.12);
+
+			&--open {
+				display: flex;
+			}
+		}
+	}
+
+	&__nav-item {
+		display: flex;
+		align-items: center;
+		gap: 6rem;
+		font-family: $font-mono;
+		font-size: $font-size-nav;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	&__chevron {
+		color: $color-text-muted;
+		font-size: $font-size-nav;
+	}
+
+	&__nav-link {
+		color: $color-text-secondary;
+		text-decoration: none;
+		transition: $transition-fast;
+
+		&:hover,
+		&--active {
+			color: $color-text-primary;
+		}
+	}
+}
+
+.satus-hero {
+	padding-top: $grid-padding * 2;
+	padding-bottom: $grid-padding * 2.5;
+
+	@include media-down('tablet') {
+		padding-top: $grid-padding-mobile * 2;
+		padding-bottom: $grid-padding-mobile * 2.5;
+	}
+
+	&__kicker {
+		font-family: $font-mono;
+		font-size: $font-size-label;
+		font-weight: $font-weight-regular;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: $color-text-muted;
+		margin-bottom: $grid-col-gap;
+	}
+
+	&__title {
+		font-family: $font-montreal;
+		font-size: $font-size-hero;
+		font-weight: $font-weight-bold;
+		line-height: $leading-hero;
+		letter-spacing: $tracking-hero;
+		text-transform: uppercase;
+		color: $color-text-primary;
+		margin-bottom: $grid-padding;
+
+		@include media-down('tablet') {
+			font-size: $font-size-hero-mobile;
+			margin-bottom: $grid-padding-mobile * 1.5;
+		}
+	}
+
+	&__lede {
+		font-family: $font-mono;
+		font-size: $font-size-body;
+		font-weight: $font-weight-regular;
+		line-height: $leading-relaxed;
+		color: $color-text-secondary;
+		max-width: 640rem;
+		margin: 0;
+
+		@include media-down('tablet') {
+			font-size: $font-size-desc;
+		}
+	}
+}
+
+.satus-guide {
+	padding-bottom: $grid-padding * 2;
+}
+
+.satus-steps {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.satus-step {
+	border-top: 1px solid $line;
+	padding: ($grid-padding * 1.75) 0;
+	display: grid;
+	grid-template-columns: 80rem 1fr;
+	gap: $grid-padding;
+
+	@include media-down('tablet') {
+		grid-template-columns: 1fr;
+		gap: $grid-padding-mobile;
+		padding: ($grid-padding-mobile * 2) 0;
+	}
+
+	&__index {
+		font-family: $font-mono;
+		font-size: $font-size-list;
+		color: $color-text-muted;
+		padding-top: 2rem;
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 14rem;
+	}
+
+	&__title {
+		font-family: $font-montreal;
+		font-size: $text-xl;
+		font-weight: $font-weight-bold;
+		line-height: $leading-tight;
+		letter-spacing: $tracking-tight;
+		text-transform: uppercase;
+		color: $color-text-primary;
+		margin: 0;
+
+		@include media-down('tablet') {
+			font-size: $text-lg;
+		}
+	}
+
+	&__desc {
+		font-family: $font-mono;
+		font-size: $font-size-desc;
+		line-height: $leading-relaxed;
+		color: $color-text-secondary;
+		margin: 0;
+
+		&+.satus-step__desc {
+			margin-top: -4rem;
+		}
+	}
+
+	&__inline {
+		font-family: $font-mono;
+		font-size: $font-size-small;
+		background-color: $color-bg-subtle;
+		border: 1px solid $line;
+		color: $color-text-primary;
+		padding: 2rem 6rem;
+	}
+
+	&__link {
+		color: $color-text-primary;
+		text-decoration: underline;
+		text-underline-offset: 3rem;
+		transition: $transition-fast;
+
+		&:hover {
+			opacity: 0.75;
+		}
+	}
+
+	&__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8rem;
+		margin-top: 4rem;
+	}
+
+	&__tag {
+		font-family: $font-mono;
+		font-size: $font-size-small;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: $color-text-secondary;
+		background-color: $color-bg-subtle;
+		border: 1px solid $line;
+		padding: 3rem 8rem;
+	}
+}
+
+.satus-code {
+	position: relative;
+	background-color: $color-bg-subtle;
+	border: 1px solid $line;
+	padding: 16rem $grid-padding;
+	margin-top: 4rem;
+	max-width: 680rem;
+	overflow: hidden;
+	transition: $transition-fast;
+
+	&:hover {
+		border-color: $color-border-subtle;
+	}
+
+	&__pre {
+		margin: 0;
+		font-family: $font-mono;
+		font-size: $font-size-body;
+		line-height: $leading-normal;
+		color: $color-text-primary;
+		white-space: pre;
+		overflow-x: auto;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		@include media-down('tablet') {
+			font-size: $font-size-desc;
+		}
+	}
+
+	&__btn {
+		position: absolute;
+		top: 12rem;
+		right: 12rem;
+		background-color: $color-bg-elevated;
+		border: 1px solid $line;
+		color: $color-text-secondary;
+		font-family: $font-mono;
+		font-size: $font-size-label;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 4rem 8rem;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 4rem;
+		transition: $transition-fast;
+
+		&:hover {
+			color: $color-text-primary;
+			border-color: $color-text-primary;
+		}
+
+		&--copied {
+			color: $color-text-primary;
+			border-color: $color-text-primary;
+			background-color: $color-bg-subtle;
+		}
+	}
+}
+
+.satus-outro {
+	border-top: 1px solid $line;
+	padding: ($grid-padding * 1.75) 0;
+	margin-top: $grid-col-gap;
+
+	&__text {
+		font-family: $font-mono;
+		font-size: $font-size-label;
+		line-height: $leading-relaxed;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: $color-text-muted;
+		max-width: 680rem;
+		margin: 0;
+	}
+}
+
+.satus-footer {
+	border-top: 1px solid $line;
+	padding: ($grid-padding * 1.75) 0 ($grid-padding * 2.5);
+	margin-top: auto;
+
+	.satus-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		@include media-down('tablet') {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: $grid-padding-mobile * 2;
+		}
+	}
+
+	&__brand {
+		display: flex;
+		align-items: center;
+		gap: $grid-col-gap;
+		color: $color-text-primary;
+		text-decoration: none;
+		transition: $transition-fast;
+
+		&:hover {
+			opacity: 0.75;
+		}
+	}
+
+	&__logo {
+		width: 36rem;
+		height: 36rem;
+		display: block;
+		object-fit: contain;
+	}
+
+	&__links {
+		display: flex;
+		align-items: center;
+		gap: $grid-col-gap;
+		font-family: $font-mono;
+		font-size: $font-size-nav;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		flex-wrap: wrap;
+	}
+
+	&__link {
+		color: $color-text-secondary;
+		text-decoration: none;
+		transition: $transition-fast;
+
+		&:hover {
+			color: $color-text-primary;
+		}
+	}
+
+	&__separator {
+		color: $color-text-muted;
+	}
+}
