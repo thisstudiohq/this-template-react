@@ -1,5 +1,5 @@
 import { getCloudinaryUrl } from "./cloudinary";
-import { sanityClient } from "./sanity/client";
+import { isSanityConfigured, sanityClient } from "./sanity/client";
 import { urlForImage } from "./sanity/image";
 import { aboutQuery, siteSettingsQuery } from "./sanity/queries";
 import type { SanityAbout, SanitySiteSettings } from "./sanity/types";
@@ -53,6 +53,10 @@ export const defaultAboutData: AboutData = {
 };
 
 export async function fetchSiteSettings(): Promise<SiteSettings> {
+	if (!isSanityConfigured) {
+		return siteConfig;
+	}
+
 	try {
 		const doc = await sanityClient.fetch<SanitySiteSettings | null>(siteSettingsQuery);
 		if (doc) {
@@ -76,6 +80,10 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
 }
 
 export async function fetchAbout(): Promise<AboutData> {
+	if (!isSanityConfigured) {
+		return defaultAboutData;
+	}
+
 	try {
 		const doc = await sanityClient.fetch<SanityAbout | null>(aboutQuery);
 		if (doc) {

@@ -2,21 +2,37 @@
 
 Boilerplate for creative projects
 
-### Installation, run the following commands:
+### Installation & Setup
+
+1. Install dependencies:
 
 ```bash
 bun install
-
-bun dev
 ```
 
-### If you do not have bun installed, delete the `bun.lock` file and install via npm,
+*(If you do not have bun installed, delete `bun.lock` and run `npm install`)*
+
+2. Copy the environment variables:
 
 ```bash
-npm install
-
-npm run dev
+cp .env.example .env
 ```
+
+Set your Sanity and Cloudinary credentials in `.env` (the frontend will gracefully use default fallback content if Sanity is not yet configured).
+
+3. Start development servers:
+
+- **Web app**:
+```bash
+bun dev
+```
+Accessible at `http://localhost:3000/`.
+
+- **Sanity Studio**:
+```bash
+bun run studio:dev
+```
+Accessible at `http://localhost:3333/studio/` (or proxied via `http://localhost:3000/studio`).
 
 ### Misc
 

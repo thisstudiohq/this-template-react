@@ -1,13 +1,15 @@
 import { createImageUrlBuilder } from "@sanity/image-url";
-import { dataset, projectId } from "./client";
+import { dataset, isSanityConfigured, projectId } from "./client";
 
-const imageBuilder = createImageUrlBuilder({
-	projectId,
-	dataset,
-});
+const imageBuilder = isSanityConfigured
+	? createImageUrlBuilder({
+			projectId,
+			dataset,
+		})
+	: null;
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity image asset source structure
 export function urlForImage(source: any) {
-	if (!source) return null;
+	if (!source || !imageBuilder) return null;
 	return imageBuilder.image(source);
 }
