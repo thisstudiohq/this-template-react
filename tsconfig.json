@@ -24,5 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
-  }
+  },
+  "exclude": ["studio", "dist", "node_modules"]
 }

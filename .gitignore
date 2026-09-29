@@ -5,9 +5,19 @@ dist-ssr
 *.local
 .env
 .nitro
+.vscode
 .tanstack
 .wrangler
 .output
 .vinxi
 __unconfig*
 todos.json
+
+# Local Netlify folder
+.netlify
+
+# Sanity Studio
+studio/dist
+studio/.sanity
+studio/.env
+studio/.env.local

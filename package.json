@@ -8,18 +8,24 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "studio:dev": "cd studio && bun run dev -- --port 3333",
+    "studio:build": "cd studio && bun install && bun run build ../dist/client/studio -y && cp -r ../dist/client/studio/static ../dist/client/static",
+    "build": "vite build && cd studio && bun install && bun run build ../dist/client/studio -y && cp -r ../dist/client/studio/static ../dist/client/static",
     "preview": "vite preview",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check"
+    "check": "biome check",
+    "cloudinary:upload": "node --env-file=.env scripts/upload-to-cloudinary.js"
   },
   "dependencies": {
+    "@sanity/client": "^8.6.2",
+    "@sanity/image-url": "^2.1.1",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
     "@tanstack/react-start": "latest",
+    "cloudinary": "^2.11.0",
     "gsap": "^3.15.0",
     "lenis": "^1.3.26",
     "ogl": "^1.0.11",

@@ -1,6 +1,26 @@
 [build]
-  command = "vite build"
+  command = "vite build && cd studio && bun install && bun run build ../dist/client/studio -y && cp -r ../dist/client/studio/static ../dist/client/static"
   publish = "dist/client"
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SANITY_STUDIO_DATASET,SANITY_DATASET,SANITY_STUDIO_PROJECT_ID,SANITY_PROJECT_ID,SANITY_API_VERSION,SANITY_STUDIO_CLOUDINARY_CLOUD_NAME,CLOUDINARY_CLOUD_NAME,VITE_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,SANITY_STUDIO_CLOUDINARY_API_KEY"
+  SECRETS_SCAN_OMIT_PATHS = "docs/**,docs/*"
+
+[[redirects]]
+  from = "/static/*"
+  to = "/studio/static/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/studio"
+  to = "/studio/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/studio/*"
+  to = "/studio/index.html"
+  status = 200
+
 [dev]
   command = "npm run dev"
   targetPort = 3000
